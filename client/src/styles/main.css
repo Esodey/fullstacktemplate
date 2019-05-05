@@ -26,6 +26,29 @@ body {
   text-align: center;
 }
 
+.add-movie {
+width :200px;
+height : 30px;
+padding: 15px;
+margin: 10px
+}
+
+.search-control {
+  width :170px;
+  height : 30px;
+  padding: 15px;
+  margin: 10px
+}
+
+.watch {
+  margin: 10px
+}
+
+.selected {
+  margin: 5px;
+  background: green;
+}
+
 h1 {
   font-family: var(--mainFont);
 }

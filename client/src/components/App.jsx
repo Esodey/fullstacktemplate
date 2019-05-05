@@ -1,28 +1,49 @@
 import React from 'react';
 import MovieList from './MovieList.js';
 import Search from './Search.js';
-import exampleMovies from '../../../data/exampleMovies.js';
-
+import { isUndefined, isNullOrUndefined } from 'util';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies : exampleMovies,
+      search : undefined,
+      movieList: {},
+      viewer : 'toWatch'
     };
   }
 
   handleSubmit(inputValue) {
-    var filteredMovies = (inputValue, exampleMovies) => {
-     return exampleMovies.filter(movie => movie.title.includes(inputValue))
-      
-    }
     this.setState({
-    movies : filteredMovies
+      search : inputValue,
+      viewer : undefined
     })
   }
 
-  
+  handleNewMovie(inputMovie) {
+    if (this.props.movies.some((movie) => movie.title === inputMovie)) {
+      var current = this.state.movieList;
+      current[title] = { title, watched: false }
+      this.setState({
+        movieList: current
+      })
+    }
+  } 
+
+  renderList()  {
+    if (this.state.search) {
+      var movies =  this.props.movies.filter(movie => movie.title.includes(this.state.search));
+      return <MovieList movies={ movies } />
+    } else {
+      var movies;
+      if  (this.state.viewer === "watch") {
+
+      } else {
+
+      }
+      return <MovieList movies={ this.state.watchedMovies } />
+    }
+  }
 
   render() {
     return (
@@ -31,12 +52,28 @@ class App extends React.Component {
         <br />
         <div>
           <div>
-            <Search movies={this.state.movies} 
+            <Search
             handleSubmit={this.handleSubmit.bind(this)}
+            handleNewMovie={this.handleNewMovie.bind(this)}
             />
             
           </div>
-          <MovieList movies={this.state.movies} /> 
+          <button 
+          className={this.state.viewer === 'watch' ? "selected" : undefined}
+          onClick={() => this.setState({
+            viewer : 'watch',
+            search: undefined
+          })}
+          >Watch</button>
+          <button 
+          className={this.state.viewer === "toWatch" ? "selected" : undefined}
+          onClick={() => this.setState({
+            viewer : 'toWatch',
+            search: undefined
+          })}
+          >ToWatch</button>
+          { this.renderList() } 
+          
         </div>
       </div>
     );

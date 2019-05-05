@@ -5,9 +5,8 @@ var MovieList = (props) => (
   <div className='movie-list'>
   <h3>Movies:</h3>
     {props.movies.map(movie => {
-      return <Movie 
-      key={movie.title}
-      movie={movie} 
+      // console.log(props.movies)
+      return <Movie key={movie.title} movie={movie} viewer={ props.viewer }
       />
     })}
   </div>

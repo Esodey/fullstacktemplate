@@ -1,12 +1,12 @@
 import React from 'react';
-import exampleMovies from '../../../data/exampleMovies.js'
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value : ''
+      value : '',
+      input : ''
     }
   }
 
@@ -16,33 +16,53 @@ class Search extends React.Component {
      });
   }
 
+  handleAdd(e) {
+    this.setState({
+      input: e.target.value
+    });
+ }
+
 
   render () {
     return (
-      <div
-       
-       >
-      <label type='text' search='search'>
-        Search:
-      </label>
-        <input 
-          className='form-control'
-          type='text'
-          onChange={e => this.handleChange(e)}
-          value={this.state.value}
-          />
-        <button onClick={this.props.handleSubmit}>Submit</button>
+      <div>
+        <div>
+          <input
+            className='add-movie'
+            type='text'
+            placeholder='Add Movies'
+            onChange={e => this.handleAdd(e)}
+            value={this.state.input}
+            />
+            <button onClick={() => {this.props.handleNewMovie(this.state.input);
+            this.setState({
+              input : ''
+            })}}>
+            ADD
+          </button>
+        </div>
+          <div> 
+            
+          <div>
+            <label type='text' search='search' />
+            <input 
+            className='search-control'
+            type='text'
+            placeholder='Search'
+            onChange={e => this.handleChange(e)}
+            value={this.state.value}
+            />
+            <button onClick={() => {this.props.handleSubmit(this.state.value);
+              this.setState({
+                value : ''
+              })}
+            }>
+          Submit</button>
+          </div>
+        </div>
       </div>
     )
   }
 }
-
-{/* <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form> */}
 
 export default Search;
