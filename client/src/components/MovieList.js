@@ -6,8 +6,15 @@ var MovieList = (props) => (
   <h3>Movies:</h3>
     {props.movies.map(movie => {
       // console.log(props.movies)
-      return <Movie key={movie.title} movie={movie} viewer={ props.viewer }
-      />
+      return (
+        <Movie
+          key={movie.title}
+          movie={movie}
+          isList={ props.isList }
+          toggleMovie={ props.toggleMovie }
+          showDetails={ props.showDetails }
+        />
+      );
     })}
   </div>
 );
